@@ -970,9 +970,17 @@ try {
 } finally{
     console.log('in any case i will be executed!')
 }
-*/
 
-// 
+
+/** throw - the throw statement allows us to create a custome error
+ *  we can throw a string, number, boolean or an object
+ *  when you throw exception, expression specifies the value of the exception
+ *  each of the following throws an exception:
+    - throw 'Error2'
+    - throw 42
+    - throw true
+    - throw new Error('Required')  an error obj with message: Required */
+/** 
 const throwErrorExample = () => {
     let x = prompt('Enter a number: ')
     try {
@@ -983,6 +991,248 @@ const throwErrorExample = () => {
         if(x > 10) throw 'too high'
     } catch(err){
         console.log(err)
-    }
+    } 
 }
 throwErrorExample()
+
+
+/** classes - is like an object constructor or a blueprint for creating objects
+ *  we create a class to create an object, the class defines attribute and the behavior of the object
+ *  while the object on the other hand, represent the class. once we create a class we can create an object from it
+ *  creating an object from a class is called class instantiation
+ *  class allows us to create many objects, this helps to reduce the amount and repetition of code 
+
+//  to define a class in Js, we need the keyword class, the name of the class in CamelCase and block code
+class ClassName{
+    // code goes here
+}
+class Person{
+    // code
+}
+
+// class instantiation - creating an object from a class
+// we use the keyword 'new' followed by the name of the class
+const person = new Person()
+console.log(person)
+
+/** class constructor - is a built-in function which allows us to create a blueprint for the object
+ *  it starts with a keyword 'constructor' followed by a parenthesis, we pass the properties of the obj as parameter 
+ *  we use 'this' keyword to attach the constructor parameters with the class 
+class Person{
+    constructor(fName, lName){
+        console.log(this) // checking output from here
+        this.fName = fName
+        this.lName = lName
+    }
+}
+const person = new Person()
+console.log(person)
+
+// once we created a class, we can created many object using the class
+const person1 = new Person('Abba', 'Ali')
+console.log(person1)
+
+const person2 = new Person('Samuel', 'Pit')
+console.log(person2)
+
+// let us add more properties to the class
+class Person{
+    constructor(fName, lName, age, country, city){
+        this.fName = fName
+        this.lName = lName
+        this. age = age
+        this.country = country
+        this.city = city
+    }
+}
+const person = new Person('John', 'Drill', 21, 'Nigeria', 'Kano')
+console.log(person)
+
+// the constructor func properties may have a deafult value like other regular functions
+class Person{
+    constructor(
+        fName = 'Adewale',
+        lName = 'Lookman',
+        age = 24,
+        country = 'Nigeria',
+        city = 'Kano'
+    ){
+        this.fName = fName
+        this.lName = lName
+        this. age = age
+        this.country = country
+        this.city = city
+    }
+}
+const person = new Person()
+console.log(person)
+*/
+
+/** class methods - the constructor inside a class is a built-in function which allows us to create a blueprint for the object
+ *  in a class we can create class methods, methods are js functions inside the class 
+class Person{
+    constructor(fName, lName, age, country, city){
+        this.fName = fName
+        this.lName = lName
+        this.age = age
+        this.country = country
+        this.city = city
+    }
+    getFullName(){
+        const fullName = this.fName + ' ' + this.lName
+        return fullName
+    }
+}
+const person = new Person('Muhammad', 'Bashir', 27, 'Nigeria', 'Kano')
+console.log(person.getFullName())
+const person2 = new Person('Bilal', 'Asad', 24, 'Nigeria', 'Abuja')
+console.log(person2.getFullName())
+
+
+// properties with initial value - when we create a class for some properties we may have an initial value
+class Person{
+    constructor(fName, lName, age, country, city){
+        this.fName = fName
+        this.lName = lName
+        this.age = age
+        this.country = country
+        this.city = city
+        this.score = 0
+        this.skills = []
+    }
+    getFullName(){
+        const fullName = this.fName + ' ' + this.lName
+        return fullName
+    }
+
+    // a method could be regular, getter or a setter
+    // getter - the gettter method allows us to access value from the object. we use the keyword 'get' followed by a function
+    // instead of accessing properties directly from the obeject, we use getter to get the value
+    get getScore(){
+        return this.score
+    }
+    get getSkills(){
+        return this.skills
+    }
+    
+    // setter - the setter method allows us to modify the value of a certain properties
+    // we use the keyword 'set' followed by a function
+    set setScore(score){
+        this.score += score
+    }
+    set setSkills(skill){
+        this.skills.push(skill)
+    }
+
+    // adding a regular method called getPersonInfo
+    getPersonInfo(){
+        let fullName = this.getFullName()
+        let skills = this.skills.length > 0 && this.skills.slice(0, this.skills.length - 1).join(', ') + `and ${this.skills[this.skills.length - 1]}`
+        let formattedSkills = skills ? `He knows ${skills}`: ''
+        let info = `${fullName} is ${this.age}. He lives in ${this.city}, ${this.country}. ${formattedSkills}`
+        return info
+    }
+}
+
+const person = new Person('Bilal', 'Asad', 28, 'Nigeria', 'Abuja')
+const person2 = new Person('Binta', 'Ilyas', 24, 'Nigeria', 'Kano')
+console.log(person.score)
+console.log(person.skills)
+
+// we don't need a parenthesis to call a getter/setter methods
+// console.log(person.getScore)
+// console.log(person.getSkills)
+
+person.setScore = 1
+person.setSkills = 'HTML'
+person.setSkills = 'Python'
+person.setSkills = 'JavaScript'
+
+person2.setScore = 2
+person2.setSkills = 'Planning'
+person2.setSkills = 'Managing'
+person2.setSkills = 'Organizing'
+console.log(person.getScore)
+console.log(person2.getScore)
+console.log(person.getSkills)
+console.log(person2.getSkills)
+console.log(person.getPersonInfo())
+*/
+
+class Person{
+    constructor(fName, lName, age, country, city){
+        this.fName = fName
+        this.lName = lName
+        this.age = age
+        this.country = country
+        this.city = city
+        this.score = 0
+        this.skills = []
+    }
+    getFullName(){
+        const fullName = this.fName + ' ' + this.lName
+        return fullName
+    }
+
+    // a method could be regular, getter or a setter
+    // getter - the gettter method allows us to access value from the object. we use the keyword 'get' followed by a function
+    // instead of accessing properties directly from the obeject, we use getter to get the value
+    get getScore(){
+        return this.score
+    }
+    get getSkills(){
+        return this.skills
+    }
+    
+    // setter - the setter method allows us to modify the value of a certain properties
+    // we use the keyword 'set' followed by a function
+    set setScore(score){
+        this.score += score
+    }
+    set setSkills(skill){
+        this.skills.push(skill)
+    }
+
+    // adding a regular method called getPersonInfo
+    getPersonInfo(){
+        let fullName = this.getFullName()
+        let skills = this.skills.length > 0 && this.skills.slice(0, this.skills.length - 1).join(', ') + `and ${this.skills[this.skills.length - 1]}`
+        let formattedSkills = skills ? `He knows ${skills}`: ''
+        let info = `${fullName} is ${this.age}. He lives in ${this.city}, ${this.country}. ${formattedSkills}`
+        return info
+    }
+
+    /**static method - defines a static method for a class.
+     * static methods are not called on instance of the class, instead they are called on the class itself
+     * these are often utility func, such as func to create or clone object
+     * an example of static method is Date.now(), the now() method is called directly from the class */
+
+    static showDateTime(){
+        let now = new Date()
+        let year = now.getFullYear()
+        let month = now.getMonth() + 1
+        let date = now.getDate()
+        let hours = now.getHours()
+        let minutes = now.getMinutes()
+
+        if(hours < 10){
+            hours = '0' + hours
+        }
+        if(minutes < 10){
+            minutes = '0' + minutes
+        }
+
+        let dateMonthYear = date + '.' + month + '.' + year
+        let time = hours + ':' + minutes
+        let fullTime = dateMonthYear + ' ' + time
+        return fullTime
+    }
+
+    static favoriteSkills(){
+        const skills = ['HTML', 'CSS', 'JS', 'React', 'Python', 'Node']
+        const index = Math.floor(Math.random() * skills.length)
+        return skills[index]
+    }
+}
+console.log(Person.favoriteSkills())
+console.log(Person.showDateTime())
